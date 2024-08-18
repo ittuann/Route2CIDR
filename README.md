@@ -1,6 +1,8 @@
-# Route to CIDR Converter
+# [Route to CIDR Converter](https://ittuann.github.io/Route2CIDR/)
 
-## <https://ittuann.github.io/Route2CIDR/>
+访问本工具：***<https://ittuann.github.io/Route2CIDR/>***
+
+![Route2CIDR WebSite](docs/images/homepage.png)
 
 本项目是一个在线工具，用于将路由表转换为 CIDR (无类域间路由，Classless Inter-Domain Routing)，并支持转换为Clash、SSTap和Netch代理规则。
 

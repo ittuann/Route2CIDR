@@ -88,11 +88,11 @@ function routeToCIDR(routeRawStr) {
         );
     });
 
-    cidrAddressList.forEach((network) => {
-        console.log(`${network.networkAddress}/${network.subnetMaskLength}`);
-    });
+    // cidrAddressList.forEach((network) => {
+    //     console.log(`${network.networkAddress}/${network.subnetMaskLength}`);
+    // });
 
-    return cidrAddressList; // 返回CIDR地址列表
+    return cidrAddressList; // 返回CIDR列表
 }
 
 function convertCIDRListToStr(cidrAddressList, formatFn, header = "") {
@@ -153,20 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
     inputElement.placeholder = exampleRouteInput;
     configContainer.style.display = "none";
 
-    // 定义转换按钮点击事件通用处理函数
-    function handleButtonClick(convertFunction, extraParam = null) {
-        const routeInput =
-            inputElement.value.trim() === ""
-                ? exampleRouteInput
-                : inputElement.value;
-        const cidrAddressList = routeToCIDR(routeInput);
-        const result = extraParam
-            ? convertFunction(cidrAddressList, extraParam)
-            : convertFunction(cidrAddressList);
-        outputElement.textContent = result;
-        showNotification("转换完成！");
-    }
-
     // 切换显示/隐藏额外设置
     function toggleConfigContainer(show) {
         configContainer.style.display = show ? "block" : "none";
@@ -185,14 +171,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     }
 
+    // 定义转换按钮点击事件通用处理函数
+    function handleButtonClick(convertFunction, extraParam = null) {
+        showNotification("正在转换路由表至CIDR~ 转换速度取决于路由表长度");
+
+        const routeInput =
+            inputElement.value.trim() === ""
+                ? exampleRouteInput
+                : inputElement.value;
+        const cidrAddressList = routeToCIDR(routeInput);
+        const result = extraParam
+            ? convertFunction(cidrAddressList, extraParam)
+            : convertFunction(cidrAddressList);
+        outputElement.textContent = result;
+
+        showNotification("转换完成！");
+    }
+
     // 添加事件监听器
     buttonToClash.addEventListener("click", () => {
-        showNotification("正在转换路由至CIDR~ 转换速度取决于路由表长度");
         handleButtonClick(convertCIDRListToClashStr);
         toggleConfigContainer(false);
     });
     buttonToSSTap.addEventListener("click", () => {
-        showNotification("正在转换路由至CIDR~ 转换速度取决于路由表长度");
         handleButtonClick(
             convertCIDRListToSSTapStr,
             sstapHeaderElement.value.trim(),
@@ -200,7 +201,6 @@ document.addEventListener("DOMContentLoaded", () => {
         toggleConfigContainer(true);
     });
     buttonToNetch.addEventListener("click", () => {
-        showNotification("正在转换路由至CIDR~ 转换速度取决于路由表长度");
         handleButtonClick(convertCIDRListToNetchStr);
         toggleConfigContainer(false);
     });
