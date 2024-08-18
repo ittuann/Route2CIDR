@@ -28,7 +28,7 @@ jobs:
                   git config --global user.name "github-actions[bot]"
                   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   LATEST_HASH=$(git rev-parse --short=7 HEAD)
-                  git clone https://github.com/ittuann/Awesome-IntelligentCarRace.git pages
+                  git clone https://github.com/ittuann/Route2CIDR.git pages
                   cd pages
                   git checkout gh-pages
                   if [[ "$(git ls-files)" ]]; then git rm -rf .; fi
