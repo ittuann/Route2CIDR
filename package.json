@@ -21,6 +21,8 @@
         "ip": "^2.0.1"
     },
     "devDependencies": {
+        "eslint": "^9.9.0",
+        "pretty": "^2.0.0",
         "webpack": "^5.93.0",
         "webpack-cli": "^5.1.4"
     }

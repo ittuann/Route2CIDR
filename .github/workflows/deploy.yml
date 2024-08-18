@@ -1,0 +1,47 @@
+name: Deploy to gh-pages
+
+on:
+    workflow_run:
+        workflows:
+            - CI
+        types:
+            - completed
+    workflow_dispatch:
+
+jobs:
+    gh-deploy:
+        runs-on: ubuntu-latest
+
+        if: github.ref == 'refs/heads/main' && github.event.workflow_run.event == 'push' && github.event.workflow_run.conclusion == 'success'
+
+        permissions:
+            contents: write
+
+        steps:
+            - name: Checking Out
+              uses: actions/checkout@v4
+              with:
+                  ref: ${{ github.head_ref }}
+
+            - name: Prepare github pages
+              run: |
+                  git config --global user.name "github-actions[bot]"
+                  git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  LATEST_HASH=$(git rev-parse --short=7 HEAD)
+                  git clone https://github.com/ittuann/Awesome-IntelligentCarRace.git pages
+                  cd pages
+                  git checkout gh-pages
+                  if [[ "$(git ls-files)" ]]; then git rm -rf .; fi
+                  git clean -fxd
+                  cp ../index.html .
+                  cp ../dist ./dist
+                  cp ../iconx ./iconx
+                  git add .
+                  git commit -s -m "Deployed GitHub Pages - $LATEST_HASH"
+
+            - name: Push changes
+              uses: ad-m/github-push-action@master
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  branch: gh-pages
+                  directory: pages
