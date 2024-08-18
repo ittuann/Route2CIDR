@@ -34,8 +34,8 @@ jobs:
                   if [[ "$(git ls-files)" ]]; then git rm -rf .; fi
                   git clean -fxd
                   cp ../index.html .
-                  cp ../dist ./dist
-                  cp ../iconx ./iconx
+                  cp -r ../dist ./dist
+                  cp -r ../iconx ./iconx
                   git add .
                   git commit -s -m "Deployed GitHub Pages - $LATEST_HASH"
 
