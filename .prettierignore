@@ -1,5 +1,0 @@
-# Ignore artifacts:
-dist
-
-# Ignore files:
-package-lock.json
