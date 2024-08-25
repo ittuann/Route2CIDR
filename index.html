@@ -3,12 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Convert routing table to CIDR for Clash, SSTap, Netch proxy rules.">
+    <meta name="keywords" content="CIDR,Routing,RIB,Clash,SSTap,Netch">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="ittuann">
     <title>Route to CIDR Converter</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="iconx/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="iconx/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="iconx/favicon-16x16.png">
-    <link rel="manifest" href="iconx/site.webmanifest">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/iconx/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/iconx/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/iconx/favicon-16x16.png">
+    <link rel="manifest" href="/iconx/site.webmanifest">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-13TDFKC8ZD"></script>
     <script>function gtag() { dataLayer.push(arguments) } window.dataLayer = window.dataLayer || [], gtag("js", new Date), gtag("config", "G-13TDFKC8ZD")</script>
 </head>
@@ -19,8 +23,8 @@
         <div class="flex justify-center items-center mb-6">
             <h1 class="text-2xl font-bold text-gray-700 text-center">Route to CIDR Converter</h1>
 
-            <a href="https://github.com/ittuann/Route2CIDR" class="absolute top-2 right-2 w-10 h-10" target="_blank">
-                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub"
+            <a rel="dns-prefetch" href="https://github.com/ittuann/Route2CIDR" target="_blank" class="absolute top-2 right-2 w-10 h-10">
+                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Link"
                     class="w-10 h-10">
             </a>
         </div>
@@ -41,7 +45,7 @@
 
         <div class="input-info mt-8 mb-6">
             <strong class="text-gray-700">粘贴路由表至此：</strong>
-            <p class="text-sm text-gray-500">Tip: 获取路由表的方式为，在 Windows 终端中执行命令 "route print -4"</p>
+            <p class="text-sm italic text-gray-500">Tip: 获取路由表的方式为，在 Windows 终端中执行命令 "route print -4"</p>
         </div>
 
         <textarea id="input" rows="10"
@@ -75,7 +79,7 @@
                     class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">下载</button>
             </div>
         </div>
-        <p class="text-sm text-gray-500 text-left mt-2">Note: 转换速度取决于输入路由表长度</p>
+        <p class="text-sm italic text-gray-500 text-left mt-2">Note: 转换速度取决于输入路由表长度</p>
 
         <div id="notification"
             class="fixed bottom-4 right-4 bg-gray-800 text-white py-2 px-4 rounded-lg shadow-lg opacity-0 transition-opacity duration-300">
@@ -84,7 +88,7 @@
         <pre id="output" class="bg-gray-100 p-4 rounded-lg mt-4 border max-h-64 overflow-auto"></pre>
     </div>
 
-    <script src="./dist/bundle.js"></script>
+    <script src="/dist/bundle.js"></script>
 </body>
 
 </html>
