@@ -1,30 +1,30 @@
 {
-    "name": "route2cidr",
-    "version": "1.0.0",
-    "description": "Router to CIDR Converter",
-    "main": "./src/index.js",
-    "homepage": "./",
-    "scripts": {
-        "build": "npx webpack",
-        "lint": "npx eslint ./src/",
-        "pretty": "npx prettier --write '**/*.{js,ts,css,scss,json,mjs,jsx,md}'"
-    },
-    "keywords": [
-        "CIDR",
-        "SSTap",
-        "Clash"
-    ],
-    "author": "ittuann <ittuann@outlook.com>",
-    "license": "AGPL-3.0",
-    "dependencies": {
-        "buffer": "^6.0.3",
-        "ip": "^2.0.1"
-    },
-    "devDependencies": {
-        "eslint": "^9.9.0",
-        "pretty": "^2.0.0",
-        "terser-webpack-plugin": "^5.3.10",
-        "webpack": "^5.94.0",
-        "webpack-cli": "^5.1.4"
-    }
+  "name": "route2cidr",
+  "version": "1.0.0",
+  "description": "Router to CIDR Converter",
+  "main": "./src/index.js",
+  "homepage": "./",
+  "scripts": {
+    "build": "npx webpack",
+    "lint": "npx eslint ./src/",
+    "pretty": "npx prettier --write '**/*.{js,ts,css,scss,json,mjs,jsx,md}'"
+  },
+  "keywords": [
+    "CIDR",
+    "SSTap",
+    "Clash"
+  ],
+  "author": "ittuann <ittuann@outlook.com>",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "ip": "^2.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^9.9.0",
+    "pretty": "^2.0.0",
+    "terser-webpack-plugin": "^5.3.10",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4"
+  }
 }
