@@ -2,20 +2,28 @@
   "name": "route2cidr",
   "version": "1.0.0",
   "description": "Router to CIDR Converter",
-  "main": "./src/index.js",
-  "homepage": "./",
-  "scripts": {
-    "build": "npx webpack",
-    "lint": "npx eslint ./src/",
-    "pretty": "npx prettier --write '**/*.{js,ts,css,scss,json,mjs,jsx,md}'"
+  "packageManager": "npm@10.7.0",
+  "author": "ittuann <ittuann@outlook.com>",
+  "license": "AGPL-3.0",
+  "homepage": "https://ittuann.github.io/Route2CIDR/",
+  "repository": {
+    "url": "https://github.com/ittuann/Route2CIDR",
+    "type": "git"
   },
+  "private": true,
   "keywords": [
     "CIDR",
     "SSTap",
     "Clash"
   ],
-  "author": "ittuann <ittuann@outlook.com>",
-  "license": "AGPL-3.0",
+  "main": "./src/index.js",
+  "scripts": {
+    "build": "npx webpack",
+    "lint": "npx eslint ./src/",
+    "lint:fix": "npx eslint --fix ./src/",
+    "format": "npx prettier --write '**/*.{js,ts,css,scss,json,mjs,jsx,md}'",
+    "format:check": "npx prettier --check ."
+  },
   "dependencies": {
     "buffer": "^6.0.3",
     "ip": "^2.0.1"
