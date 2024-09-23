@@ -30,25 +30,28 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           MAIN_LATEST_HASH=$(git rev-parse --short=7 HEAD)
 
+          echo "--- Clone gh-pages branch to pages directory. ---"
           git clone https://github.com/ittuann/Route2CIDR.git pages
           cd pages
           git checkout gh-pages
           git status
 
-          # 清理旧文件
-          if [[ "$(git ls-files)" ]]; then git rm -rf .; fi
+          echo "--- Clean old files. ---"
+          echo "--- Delete all tracked files ---"
+          git rm -rf . || echo "No tracked files to remove."
+          echo "--- Delete all untracked files ---"
           git clean -fxd
 
-          # 复制新的文件
+          echo "--- Copy new files. ---"
           cp ../index.html .
           cp -r ../dist ./dist
           cp -r ../iconx ./iconx
           git add .
 
-          # 尝试提交更改。若无更改则不会创建新提交
+          echo "--- Attempts to commit changes. If there are no changes, a new commit will not be created. ---"
           git commit -s -m "Deployed GitHub Pages - $MAIN_LATEST_HASH" || echo "No changes to commit."
 
-          # 检查是否有新提交
+          echo "--- Check if there has been a new commit. ---"
           LOCAL_HASH=$(git rev-parse HEAD)
           REMOTE_HASH=$(git rev-parse @{u})
           if [ "$LOCAL_HASH" != "$REMOTE_HASH" ]; then
