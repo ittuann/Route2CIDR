@@ -39,35 +39,32 @@ const EXCLUDED_CIDR = [
 ];
 
 function routeToCIDR(routeRawStr) {
-  const wholeList = [];
+  const WHOLE_LISTS = [];
   let cidrAddressList = [];
 
-  // 读取原始文件并保存到列表中
-  const lines = routeRawStr.split("\n");
-
-  lines.forEach((line) => {
+  routeRawStr.split("\n").forEach((line) => {
     // 以空格分割每一行的内容
-    const lineSplitList = line.trim().split(/\s+/);
-    if (lineSplitList.length == 5) {
-      wholeList.push(lineSplitList);
+    const LINE_SPLIT = line.trim().split(/\s+/);
+    if (LINE_SPLIT.length == 5) {
+      WHOLE_LISTS.push(LINE_SPLIT);
     }
   });
 
-  // 对列表中的内容转换为CIDR地址
-  wholeList.forEach((ipAddress) => {
+  // 对列表中的有效内容转换为CIDR地址
+  WHOLE_LISTS.forEach((ipAddress) => {
     try {
       if (!ip.isV4Format(ipAddress[0])) return;
 
-      const subnetInfo = ip.subnet(ipAddress[0], ipAddress[1]);
-      const cidrAddress = `${subnetInfo.networkAddress}/${subnetInfo.subnetMaskLength}`;
+      const SUBNET_INFO = ip.subnet(ipAddress[0], ipAddress[1]);
+      const CIDR_ADDRESS = `${SUBNET_INFO.networkAddress}/${SUBNET_INFO.subnetMaskLength}`;
 
       if (
-        ip.isPublic(subnetInfo.networkAddress) &&
-        !ip.isLoopback(subnetInfo.networkAddress) &&
-        !ip.isPrivate(subnetInfo.networkAddress) &&
-        !EXCLUDED_CIDR.includes(cidrAddress)
+        ip.isPublic(SUBNET_INFO.networkAddress) &&
+        !ip.isLoopback(SUBNET_INFO.networkAddress) &&
+        !ip.isPrivate(SUBNET_INFO.networkAddress) &&
+        !EXCLUDED_CIDR.includes(CIDR_ADDRESS)
       ) {
-        cidrAddressList.push(subnetInfo);
+        cidrAddressList.push(SUBNET_INFO);
       }
     } catch (error) {
       // 忽略错误

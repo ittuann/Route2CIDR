@@ -1,6 +1,6 @@
 {
   "name": "route2cidr",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Router to CIDR Converter",
   "packageManager": "npm@10.7.0",
   "author": "ittuann <ittuann@outlook.com>",

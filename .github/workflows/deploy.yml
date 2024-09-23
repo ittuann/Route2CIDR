@@ -24,22 +24,43 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Prepare github pages
+        id: prepare_pages
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          LATEST_HASH=$(git rev-parse --short=7 HEAD)
+          MAIN_LATEST_HASH=$(git rev-parse --short=7 HEAD)
+
           git clone https://github.com/ittuann/Route2CIDR.git pages
           cd pages
           git checkout gh-pages
+          git status
+
+          # 清理旧文件
           if [[ "$(git ls-files)" ]]; then git rm -rf .; fi
           git clean -fxd
+
+          # 复制新的文件
           cp ../index.html .
           cp -r ../dist ./dist
           cp -r ../iconx ./iconx
           git add .
-          git commit -s -m "Deployed GitHub Pages - $LATEST_HASH"
+
+          # 尝试提交更改。若无更改则不会创建新提交
+          git commit -s -m "Deployed GitHub Pages - $MAIN_LATEST_HASH" || echo "No changes to commit."
+
+          # 检查是否有新提交
+          LOCAL_HASH=$(git rev-parse HEAD)
+          REMOTE_HASH=$(git rev-parse @{u})
+          if [ "$LOCAL_HASH" != "$REMOTE_HASH" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "has_changes=true"
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "has_changes=false"
+          fi
 
       - name: Push changes
+        if: steps.prepare_pages.outputs.has_changes == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
