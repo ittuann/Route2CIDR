@@ -169,8 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleButtonClick(convertFunction, extraParam = null) {
     showNotification("正在转换路由表至CIDR~ 转换速度取决于路由表长度");
 
-    const routeInput =
-      inputElement.value.trim() === "" ? EXAMPLE_ROUTE_INPUT : inputElement.value;
+    const routeInput = inputElement.value.trim() === "" ? EXAMPLE_ROUTE_INPUT : inputElement.value;
     const cidrAddressList = routeToCIDR(routeInput);
     const result = extraParam
       ? convertFunction(cidrAddressList, extraParam)
@@ -186,10 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleConfigContainer(false);
   });
   buttonToSSTap.addEventListener("click", () => {
-    handleButtonClick(
-      convertCIDRListToSSTapStr,
-      sstapHeaderElement.value.trim(),
-    );
+    handleButtonClick(convertCIDRListToSSTapStr, sstapHeaderElement.value.trim());
     toggleConfigContainer(true);
   });
   buttonToNetch.addEventListener("click", () => {
