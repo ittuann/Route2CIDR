@@ -39,32 +39,32 @@ const EXCLUDED_CIDR = [
 ];
 
 function routeToCIDR(routeRawStr) {
-  const WHOLE_LISTS = [];
+  let wholeList = [];
   let cidrAddressList = [];
 
   routeRawStr.split("\n").forEach((line) => {
     // 以空格分割每一行的内容
-    const LINE_SPLIT = line.trim().split(/\s+/);
-    if (LINE_SPLIT.length == 5) {
-      WHOLE_LISTS.push(LINE_SPLIT);
+    let lineSplit = line.trim().split(/\s+/);
+    if (lineSplit.length == 5) {
+      wholeList.push(lineSplit);
     }
   });
 
   // 对列表中的有效内容转换为CIDR地址
-  WHOLE_LISTS.forEach((ipAddress) => {
+  wholeList.forEach((ipAddress) => {
     try {
       if (!ip.isV4Format(ipAddress[0])) return;
 
-      const SUBNET_INFO = ip.subnet(ipAddress[0], ipAddress[1]);
-      const CIDR_ADDRESS = `${SUBNET_INFO.networkAddress}/${SUBNET_INFO.subnetMaskLength}`;
+      let subnetInfo = ip.subnet(ipAddress[0], ipAddress[1]);
+      let cidrAddress = `${subnetInfo.networkAddress}/${subnetInfo.subnetMaskLength}`;
 
       if (
-        ip.isPublic(SUBNET_INFO.networkAddress) &&
-        !ip.isLoopback(SUBNET_INFO.networkAddress) &&
-        !ip.isPrivate(SUBNET_INFO.networkAddress) &&
-        !EXCLUDED_CIDR.includes(CIDR_ADDRESS)
+        ip.isPublic(subnetInfo.networkAddress) &&
+        !ip.isLoopback(subnetInfo.networkAddress) &&
+        !ip.isPrivate(subnetInfo.networkAddress) &&
+        !EXCLUDED_CIDR.includes(cidrAddress)
       ) {
-        cidrAddressList.push(SUBNET_INFO);
+        cidrAddressList.push(subnetInfo);
       }
     } catch (error) {
       // 忽略错误
@@ -129,17 +129,17 @@ function convertCIDRListToSSTapStr(cidrAddressList, ruleHeader) {
 
 // 获取HTML元素并添加事件监听器
 document.addEventListener("DOMContentLoaded", () => {
-  const inputElement = document.getElementById("input");
-  const outputElement = document.getElementById("output");
-  const configContainer = document.getElementById("config-container");
-  const sstapHeaderElement = document.getElementById("sstapHeader");
+  let inputElement = document.getElementById("input");
+  let outputElement = document.getElementById("output");
+  let configContainer = document.getElementById("config-container");
+  let sstapHeaderElement = document.getElementById("sstapHeader");
 
-  const buttonToClash = document.getElementById("buttonToClash");
-  const buttonToSSTap = document.getElementById("buttonToSSTap");
-  const buttonToNetch = document.getElementById("buttonToNetch");
+  let buttonToClash = document.getElementById("buttonToClash");
+  let buttonToSSTap = document.getElementById("buttonToSSTap");
+  let buttonToNetch = document.getElementById("buttonToNetch");
 
-  const copyButton = document.getElementById("copyButton");
-  const downloadButton = document.getElementById("downloadButton");
+  let copyButton = document.getElementById("copyButton");
+  let downloadButton = document.getElementById("downloadButton");
 
   inputElement.placeholder = EXAMPLE_ROUTE_INPUT;
   configContainer.style.display = "none";
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showNotification(message) {
-    const notification = document.getElementById("notification");
+    let notification = document.getElementById("notification");
     notification.textContent = message;
     notification.classList.remove("opacity-0"); // 显示通知
     notification.classList.add("opacity-100");
@@ -166,9 +166,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleButtonClick(convertFunction, extraParam = null) {
     showNotification("正在转换路由表至CIDR~ 转换速度取决于路由表长度");
 
-    const routeInput = inputElement.value.trim() === "" ? EXAMPLE_ROUTE_INPUT : inputElement.value;
-    const cidrAddressList = routeToCIDR(routeInput);
-    const result = extraParam
+    let routeInput = inputElement.value.trim() === "" ? EXAMPLE_ROUTE_INPUT : inputElement.value;
+    let cidrAddressList = routeToCIDR(routeInput);
+    let result = extraParam
       ? convertFunction(cidrAddressList, extraParam)
       : convertFunction(cidrAddressList);
     outputElement.textContent = result;
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 复制按钮功能
   copyButton.addEventListener("click", () => {
-    const outputText = outputElement.textContent.trim();
+    let outputText = outputElement.textContent.trim();
     if (outputText) {
       navigator.clipboard
         .writeText(outputText)
@@ -209,12 +209,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 下载按钮功能
   downloadButton.addEventListener("click", () => {
-    const outputText = outputElement.textContent.trim();
+    let outputText = outputElement.textContent.trim();
     if (outputText) {
-      const blob = new Blob([outputText], { type: "text/plain" });
-      const url = URL.createObjectURL(blob);
+      let blob = new Blob([outputText], { type: "text/plain" });
+      let url = URL.createObjectURL(blob);
 
-      const a = document.createElement("a");
+      let a = document.createElement("a");
       a.href = url;
       a.download = "output.rules";
       a.click();

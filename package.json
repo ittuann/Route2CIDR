@@ -21,7 +21,7 @@
     "build": "npx webpack",
     "lint": "npx eslint ./src/",
     "lint:fix": "npx eslint --fix ./src/",
-    "format": "npx prettier --write '**/*.{js,ts,css,scss,json,mjs,jsx,md}'",
+    "format": "npx prettier --write '**/*.{js,mjs,ts,css,scss,json,mjs,jsx,md}'",
     "format:check": "npx prettier --check ."
   },
   "dependencies": {
