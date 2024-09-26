@@ -53,15 +53,20 @@ function routeToCIDR(routeRawStr) {
   // 对列表中的有效内容转换为CIDR地址
   wholeList.forEach((ipAddress) => {
     try {
+      // 检查输入是否为合法的 IPv4 地址
       if (!ip.isV4Format(ipAddress[0])) return;
 
       let subnetInfo = ip.subnet(ipAddress[0], ipAddress[1]);
       let cidrAddress = `${subnetInfo.networkAddress}/${subnetInfo.subnetMaskLength}`;
 
       if (
+        // 过滤本地网络
         ip.isPublic(subnetInfo.networkAddress) &&
+        // 过滤环回地址
         !ip.isLoopback(subnetInfo.networkAddress) &&
+        // 过滤私有地址
         !ip.isPrivate(subnetInfo.networkAddress) &&
+        // 过滤保留地址等
         !EXCLUDED_CIDR.includes(cidrAddress)
       ) {
         cidrAddressList.push(subnetInfo);
@@ -126,6 +131,13 @@ function convertCIDRListToSSTapStr(cidrAddressList, ruleHeader) {
     ruleHeader,
   );
 }
+
+export {
+  routeToCIDR,
+  convertCIDRListToClashStr,
+  convertCIDRListToSSTapStr,
+  convertCIDRListToNetchStr,
+};
 
 // 获取HTML元素并添加事件监听器
 document.addEventListener("DOMContentLoaded", () => {
