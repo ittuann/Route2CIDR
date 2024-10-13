@@ -12,7 +12,7 @@ jobs:
   dependabot-auto-merge:
     runs-on: ubuntu-latest
 
-    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'ittuann/Route2CIDR'
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
 
     steps:
       - name: Dependabot metadata
